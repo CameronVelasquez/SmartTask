@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.smarttask.model.Tarea;
+
 /**
  * Punto de entrada de la aplicación SmartTask.
  *
- * <p>Esta clase contiene métodos iniciales para practicar
- * la lógica de gestión de tareas antes de incorporar
- * el modelo completo de objetos.</p>
+ * <p>Esta clase contiene las primeras pruebas de la lógica
+ * de gestión de tareas utilizando objetos de tipo Tarea.</p>
  */
 public class Main {
 
@@ -20,7 +21,7 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        List<String> tareas = new ArrayList<>();
+        List<Tarea> tareas = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("=== SmartTask ===");
@@ -28,11 +29,34 @@ public class Main {
         System.out.print("Ingrese una tarea: ");
         String nombre = scanner.nextLine();
 
-        agregarTarea(tareas, nombre);
+        Tarea tarea = new Tarea(1, nombre);
+
+        agregarTarea(tareas, tarea);
         listarTareas(tareas);
 
-        eliminarTarea(tareas, 0);
-        listarTareas(tareas);
+        if (!tarea.isCompletado()) {
+         System.out.println("La tarea todavía está pendiente.");
+        }            
+
+        int opcion = 1;
+
+        switch (opcion) {
+           case 1:
+               System.out.println("Opción seleccionada: revisar tarea.");
+        break;
+            case 2:
+               System.out.println("Opción seleccionada: completar tarea.");
+        break;
+            default:
+                 System.out.println("Opción no reconocida.");
+        }
+
+        int contador = 0;
+
+        while (contador < 2) {
+             System.out.println("Comprobación while: " + (contador + 1));
+                      contador++;
+        }
 
         scanner.close();
     }
@@ -41,10 +65,10 @@ public class Main {
      * Agrega una tarea a la lista.
      *
      * @param tareas lista donde se almacenarán las tareas
-     * @param nombre nombre de la tarea que se desea agregar
+     * @param tarea tarea que se desea agregar
      */
-    public static void agregarTarea(List<String> tareas, String nombre) {
-        tareas.add(nombre);
+    public static void agregarTarea(List<Tarea> tareas, Tarea tarea) {
+        tareas.add(tarea);
         System.out.println("Tarea agregada correctamente.");
     }
 
@@ -53,7 +77,7 @@ public class Main {
      *
      * @param tareas lista de tareas que se desea mostrar
      */
-    public static void listarTareas(List<String> tareas) {
+    public static void listarTareas(List<Tarea> tareas) {
 
         if (tareas.isEmpty()) {
             System.out.println("No hay tareas registradas.");
@@ -62,8 +86,10 @@ public class Main {
 
         System.out.println("=== Tareas ===");
 
-        for (String tarea : tareas) {
-            System.out.println("- " + tarea);
+        for (Tarea tarea : tareas) {
+            System.out.println("- ID: " + tarea.getId()
+                    + " | " + tarea.getNombre()
+                    + " | Completada: " + tarea.isCompletado());
         }
     }
 
@@ -73,7 +99,7 @@ public class Main {
      * @param tareas lista de tareas
      * @param posicion posición de la tarea que se desea eliminar
      */
-    public static void eliminarTarea(List<String> tareas, int posicion) {
+    public static void eliminarTarea(List<Tarea> tareas, int posicion) {
 
         if (posicion >= 0 && posicion < tareas.size()) {
             tareas.remove(posicion);
