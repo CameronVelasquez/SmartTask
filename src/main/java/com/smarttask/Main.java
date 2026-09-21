@@ -14,52 +14,62 @@ import com.smarttask.model.Tarea;
  */
 public class Main {
 
-    /**
-     * Inicia la ejecución de SmartTask.
-     *
-     * @param args argumentos recibidos desde la línea de comandos
-     */
-    public static void main(String[] args) {
+         /**
+          * Inicia la ejecución de SmartTask.
+          *
+          * @param args argumentos recibidos desde la línea de comandos
+          */
+         public static void main(String[] args) {
 
-        List<Tarea> tareas = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
+                 List<Tarea> tareas = new ArrayList<>();
+                 Scanner scanner = new Scanner(System.in);
 
-        System.out.println("=== SmartTask ===");
+                   int opcion;
 
-        System.out.print("Ingrese una tarea: ");
-        String nombre = scanner.nextLine();
+                do {
+                    System.out.println("\n=== SmartTask ===");
+                    System.out.println("1. Agregar tarea");
+                    System.out.println("2. Listar tareas");
+                    System.out.println("3. Eliminar tarea");
+                    System.out.println("4. Salir");
+                    System.out.print("Seleccione una opción: ");
 
-        Tarea tarea = new Tarea(1, nombre);
+                opcion = scanner.nextInt();
+                scanner.nextLine();
 
-        agregarTarea(tareas, tarea);
-        listarTareas(tareas);
 
-        if (!tarea.isCompletado()) {
-         System.out.println("La tarea todavía está pendiente.");
-        }            
+                switch (opcion) {
+                    case 1:
+                        System.out.print("Ingrese una tarea: ");
+                        String nombre = scanner.nextLine();
 
-        int opcion = 1;
+                        Tarea tarea = new Tarea(1, nombre);
+                        agregarTarea(tareas, tarea);
+                        break;
 
-        switch (opcion) {
-           case 1:
-               System.out.println("Opción seleccionada: revisar tarea.");
-        break;
-            case 2:
-               System.out.println("Opción seleccionada: completar tarea.");
-        break;
-            default:
-                 System.out.println("Opción no reconocida.");
-        }
+                    case 2:
+                        listarTareas(tareas);
+                        break;
 
-        int contador = 0;
+                    case 3:
+                        System.out.print("Ingrese la posición de la tarea a eliminar: ");
+                        int posicion = scanner.nextInt();
 
-        while (contador < 2) {
-             System.out.println("Comprobación while: " + (contador + 1));
-                      contador++;
-        }
+                        eliminarTarea(tareas, posicion);
+                        break;
 
-        scanner.close();
-    }
+                    case 4:
+                        System.out.println("Programa finalizado.");
+                        break;
+
+                    default:
+                        System.out.println("Opción no válida.");
+                    }
+
+                    } while (opcion != 4);
+
+                    scanner.close();
+       }
 
     /**
      * Agrega una tarea a la lista.
@@ -93,19 +103,23 @@ public class Main {
         }
     }
 
-    /**
-     * Elimina una tarea utilizando su posición en la lista.
+        /**
+     * Elimina una tarea utilizando su posición.
      *
      * @param tareas lista de tareas
-     * @param posicion posición de la tarea que se desea eliminar
+     * @param posicion posición indicada por el usuario, comenzando en 1
      */
     public static void eliminarTarea(List<Tarea> tareas, int posicion) {
 
-        if (posicion >= 0 && posicion < tareas.size()) {
-            tareas.remove(posicion);
+        int indice = posicion - 1;
+
+        if (indice >= 0 && indice < tareas.size()) {
+            tareas.remove(indice);
             System.out.println("Tarea eliminada correctamente.");
         } else {
             System.out.println("Tarea no encontrada.");
         }
     }
+
+
 }
