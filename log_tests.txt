@@ -1,0 +1,8 @@
+testAgregarTarea() - EXITOSO
+testListarTareas() - EXITOSO
+testMarcarComoCompletada() - EXITOSO
+
+Total de tests: 3
+Resultado: 3 tests ejecutados correctamente.
+Failures: 0
+Errors: 0
